@@ -5,8 +5,8 @@ var GitHubStrategy = require('passport-github').Strategy;
 const app = express();
 
 const GITHUB = {
-    clientID: "ca07c74962097b8480f6",
-    clientSecret: "a9428e7a75c59e24a32c0f473da2dbd42d5fbb89"
+    clientID: "36a18e40e8880bd823af",
+    clientSecret: "19d59d87a2bbed367007adcb962eb9eccbf7ac5d"
 };
 
 passport.use(new GitHubStrategy({
