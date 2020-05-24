@@ -5,7 +5,7 @@ var User = require('../models/User')
 // const FacebookStrategy = require("passport-facebook").Strategy;
 // const AmazonStrategy = require("passport-amazon").Strategy;
 const GitHubStrategy = require("passport-github").Strategy;
-// const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 // const InstagramStrategy = require("passport-instagram").Strategy;
 // const SpotifyStrategy = require("passport-spotify").Strategy;
 const TwitchStrategy = require("@d-fischer/passport-twitch").Strategy;
@@ -48,4 +48,20 @@ async function(accessToken, refreshToken, profile, cb) {
   return cb(null, profile);
 }
 ));
+
+// Google Strat
+passport.use(new GoogleStrategy({
+  clientID: keys.GOOGLE.clientID,
+  clientSecret: keys.GOOGLE.clientSecret,
+  callbackURL: "/auth/google/callback",
+},
+async function(accessToken, refreshToken, profile, cb) {
+  let user;
+  await new User({ googleId: profile.id }).save().then((err, user) => {
+    user = user
+  })
+  return cb(null, profile);
+}
+));
+
 module.exports = passport;

@@ -17,6 +17,7 @@
     "mongoose": "^5.9.15",
     "passport": "^0.4.1",
     "passport-github": "^1.1.0",
+    "passport-google-oauth20": "^2.0.0",
     "passport-twitch": "^1.0.3",
     "passport-twitchtv": "^0.1.4"
   }

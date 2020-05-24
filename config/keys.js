@@ -7,8 +7,8 @@ const AMAZON = {
     clientSecret: ""
 }
 const FACEBOOK = {
-    clientID: "",
-    clientSecret: ""
+    clientID: "925973241189078",
+    clientSecret: "f563f4e224ed568b962c5c118e4336fe"
 }
 const GOOGLE = {
     clientID: "163568748429-vbitd9qc0jdra6pmm74v033fkj8jip83.apps.googleusercontent.com",

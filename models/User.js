@@ -11,6 +11,9 @@ const UserSchema = new Schema({
     twitchId: {
         type: String,
     },
+    googleId: {
+        type: String,
+    },
 });
 
 const User = mongoose.model('User', UserSchema);
