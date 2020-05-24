@@ -21,7 +21,7 @@ passport.use(new GitHubStrategy({
   }
 ));
 app.get('/', (req, res)=>{
-    res.send('<a href="/auth/github">go</a>rs')
+    res.send('<a href="/auth/github">go</a>')
 })
 app.get('/auth/github',
   passport.authenticate('github'));
