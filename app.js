@@ -12,7 +12,7 @@ const GITHUB = {
 passport.use(new GitHubStrategy({
     clientID: GITHUB.clientID,
     clientSecret: GITHUB.clientSecret,
-    callbackURL: "http://127.0.0.1:3000/auth/github/callback",
+    callbackURL: "https://passport1337.herokuapp.com/auth/github/callback",
   },
   function(accessToken, refreshToken, profile, cb) {
     User.findOrCreate({ githubId: profile.id }, function (err, user) {
