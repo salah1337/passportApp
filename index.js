@@ -20,7 +20,9 @@ passport.use(new GitHubStrategy({
     });
   }
 ));
-
+app.get('/', (req, res)=>{
+    res.send('<a href="/auth/github">go</a>rs')
+})
 app.get('/auth/github',
   passport.authenticate('github'));
 
@@ -30,7 +32,7 @@ app.get('/auth/github/callback',
     // Successful authentication, redirect home.
     res.redirect('/');
   });
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 4000;
 app.listen(port, ()=>{
     console.log(`Listening on ${port}`)
 })
