@@ -1,36 +1,36 @@
 const express = require('express');
 const passport = require('passport')
-var TwitchtvStrategy = require('passport-twitchtv').Strategy;
+var GitHubStrategy = require('passport-github').Strategy;
 
 const app = express();
 
-const TWITCHTV = {
-    clientID: "3bim2h9k5ht5jfyktqpuqiasdexg27",
-    clientSecret: "bz4tt9sztacz4sd8qx8rg8imqbsjjn"
+const GITHUB = {
+    clientID: "ca07c74962097b8480f6",
+    clientSecret: "a9428e7a75c59e24a32c0f473da2dbd42d5fbb89"
 };
 
-passport.use(new TwitchtvStrategy({
-    clientID: TWITCHTV.clientID,
-    clientSecret: TWITCHTV.clientSecret,
-    callbackURL: "http://127.0.0.1:3000/auth/twitchtv/callback",
-    scope: "user_read"
+passport.use(new GitHubStrategy({
+    clientID: GITHUB.clientID,
+    clientSecret: GITHUB.clientSecret,
+    callbackURL: "http://127.0.0.1:3000/auth/github/callback",
   },
-  function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ twitchtvId: profile.id }, function (err, user) {
-      return done(err, user);
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ githubId: profile.id }, function (err, user) {
+      return cb(err, user);
     });
   }
 ));
-app.get('/auth/twitchtv', passport.authenticate('twitchtv'));
 
-app.get('/auth/twitchtv/callback', 
-  passport.authenticate('twitchtv', { failureRedirect: '/login' }),
+app.get('/auth/github',
+  passport.authenticate('github'));
+
+app.get('/auth/github/callback', 
+  passport.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');
-  }
-);
-
-app.listen(3000, ()=>{
-    console.log('listening on 3000')
+  });
+const port = process.env.PORT || 3000
+app.listen(port, ()=>{
+    console.log(`Listening on ${port}`)
 })
