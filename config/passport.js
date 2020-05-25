@@ -9,7 +9,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 // const InstagramStrategy = require("passport-instagram").Strategy;
 // const SpotifyStrategy = require("passport-spotify").Strategy;
 const TwitchStrategy = require("@d-fischer/passport-twitch").Strategy;
-const keys = require("./keys");
+const keys = require("./credentials/keys");
 
 passport.serializeUser((user, cb) => {
   cb(null, user);
