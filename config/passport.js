@@ -2,14 +2,12 @@ const passport = require('passport')
 var User = require('../models/User')
 
 
-// const FacebookStrategy = require("passport-facebook").Strategy;
-// const AmazonStrategy = require("passport-amazon").Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
 const GitHubStrategy = require("passport-github").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-// const InstagramStrategy = require("passport-instagram").Strategy;
-// const SpotifyStrategy = require("passport-spotify").Strategy;
+const SpotifyStrategy = require("passport-spotify").Strategy;
 const TwitchStrategy = require("@d-fischer/passport-twitch").Strategy;
-const keys = require("./credentials/keys");
+const keys = require("./keys");
 
 passport.serializeUser((user, cb) => {
   cb(null, user);
@@ -26,10 +24,6 @@ passport.use(new GitHubStrategy({
     callbackURL: "/auth/github/callback",
   },
   async function(accessToken, refreshToken, profile, cb) {
-    let user;
-    await new User({ githubId: profile.id }).save().then((err, user) => {
-      user = user
-    })
     return cb(null, profile);
   }
 ));
@@ -41,11 +35,16 @@ passport.use(new TwitchStrategy({
   callbackURL: "/auth/twitch/callback",
 },
 async function(accessToken, refreshToken, profile, cb) {
-  let user;
-  await new User({ twitchId: profile.id }).save().then((err, user) => {
-    user = user
-  })
-  return cb(null, profile);
+    // let user;
+    // await new User({ 
+    //     name: profile.display_name,
+    //     twitchId: profile.id,
+    //     imageURL: profile.profile_image_url,
+    //     origin: profile.provider,
+    // }).save().then((err, user) => {
+    //   user = user
+    // })
+    return cb(null, profile);
 }
 ));
 
@@ -56,11 +55,37 @@ passport.use(new GoogleStrategy({
   callbackURL: "/auth/google/callback",
 },
 async function(accessToken, refreshToken, profile, cb) {
-  let user;
-  await new User({ googleId: profile.id }).save().then((err, user) => {
-    user = user
-  })
-  return cb(null, profile);
+    // let user;
+    // await new User({ 
+    //     name: profile.displayName,
+    //     googleID: profile.id,
+    //     imageURL: profile.photos[0].value,
+    //     origin: profile.provider,
+    // }).save().then((err, user) => {
+    //   user = user
+    // })
+    return cb(null, profile);
+}
+));
+
+// Spotify Strat
+passport.use(new SpotifyStrategy({
+  clientID: keys.SPOTIFY.clientID,
+  clientSecret: keys.SPOTIFY.clientSecret,
+  callbackURL: "/auth/spotify/callback",
+},
+async function(accessToken, refreshToken, profile, cb) {
+    // let user;
+    // await new User({ 
+    //     name: profile.displayName,
+    //     spotifyId: profile.id,
+    //     imageURL: profile.photos[0],
+    //     origin: profile.provider,
+    //     profileURL: profile.profileURL
+    // }).save().then((err, user) => {
+    //   user = user
+    // })
+    return cb(null, profile);
 }
 ));
 
